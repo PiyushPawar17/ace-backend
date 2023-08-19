@@ -20,7 +20,10 @@
 		"types": ["node"],
 		"baseUrl": ".",
 		"paths": {
-			"@/*": ["./src/*"]
+			"@/auth/*": ["./src/auth/*"],
+			"@/guards/*": ["./src/guards/*"],
+			"@/prisma/*": ["./src/prisma/*"],
+			"@/user/*": ["./src/user/*"]
 		}
 	}
 }
