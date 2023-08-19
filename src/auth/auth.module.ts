@@ -4,8 +4,8 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { GoogleStrategy } from './utils/GoogleStrategy';
 import { SessionSerializer } from './utils/Serializer';
-import { PrismaService } from '@/prisma/prisma.service';
-import { UserService } from '@/user/user.service';
+import { PrismaService } from '../prisma/prisma.service';
+import { UserService } from '../user/user.service';
 
 @Module({
 	controllers: [AuthController],

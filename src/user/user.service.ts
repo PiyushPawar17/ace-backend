@@ -1,7 +1,7 @@
 import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
 // import { differenceInDays } from 'date-fns';
 
-import { PrismaService } from '@/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 
 import { CreateUserDto, UpdateUserDto } from './dtos';
 
