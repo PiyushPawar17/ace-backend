@@ -13,7 +13,7 @@ import {
 } from '@nestjs/common';
 
 import { UserService } from './user.service';
-import { AuthGuard } from '@/guards/auth.guard';
+import { AuthGuard } from '../guards/auth.guard';
 
 import { GetUserByEmailDto, UpdateUserDto } from './dtos';
 
