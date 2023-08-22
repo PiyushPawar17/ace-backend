@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import session from 'express-session';
 import passport from 'passport';
+import cookieParser from 'cookie-parser';
 import { PrismaSessionStore } from '@quixo3/prisma-session-store';
 import { PrismaClient } from '@prisma/client';
 
@@ -11,6 +12,11 @@ async function bootstrap() {
 	const app = await NestFactory.create(AppModule);
 
 	app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
+	app.enableCors({
+		origin: ['http://localhost:3000'],
+		credentials: true
+	});
+	app.use(cookieParser());
 	app.use(
 		session({
 			secret: process.env.SESSION_SECRET,
