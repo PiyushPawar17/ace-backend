@@ -1,6 +1,7 @@
-import { Controller, Get, Req, NotFoundException, ForbiddenException } from '@nestjs/common';
+import { Controller, Get, Req, UseGuards, NotFoundException } from '@nestjs/common';
 
 import { UserService } from './user.service';
+import { AuthGuard } from '../guards';
 
 import { Request } from 'express';
 import { User } from '@prisma/client';
@@ -10,11 +11,8 @@ export class UserController {
 	constructor(private readonly userService: UserService) {}
 
 	@Get('me')
+	@UseGuards(AuthGuard)
 	async getUser(@Req() request: Request) {
-		if (!request.user) {
-			throw new ForbiddenException('No user logged in');
-		}
-
 		const user = await this.userService.getUserById((request.user as User).id);
 
 		if (!user) {
@@ -22,5 +20,11 @@ export class UserController {
 		}
 
 		return user;
+	}
+
+	@Get('lists')
+	@UseGuards(AuthGuard)
+	async getUserLists(@Req() request: Request) {
+		return this.userService.getUserLists(request.user.id);
 	}
 }

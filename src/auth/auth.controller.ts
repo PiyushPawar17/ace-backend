@@ -15,14 +15,14 @@ export class AuthController {
 	@UseGuards(GoogleAuthGuard)
 	handleRedirect(@Req() req: Request, @Res() res: Response) {
 		res.cookie('userId', req.user.id);
-		return res.redirect('http://localhost:3000/tasks');
+		return res.redirect(process.env.LOGIN_REDIRECT_URL);
 	}
 
 	@Get('logout')
 	logout(@Req() req: Request, @Res() res: Response) {
 		req.logOut({ keepSessionInfo: false }, () => {
 			res.clearCookie('userId');
-			return res.redirect('http://localhost:3000');
+			return res.redirect(process.env.LOGOUT_REDIRECT_URL);
 		});
 	}
 }
