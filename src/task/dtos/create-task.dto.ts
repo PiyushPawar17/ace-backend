@@ -1,6 +1,6 @@
 import { IsDate, IsEnum, IsNotEmpty, IsOptional, IsString, MaxLength, MinLength } from 'class-validator';
 import { Transform, TransformFnParams } from 'class-transformer';
-import { Priority } from '@prisma/client';
+import { Priority, Status } from '@prisma/client';
 
 export class CreateTaskDto {
 	@IsString()
@@ -23,4 +23,8 @@ export class CreateTaskDto {
 	@IsOptional()
 	@IsEnum(Priority)
 	priority: Priority;
+
+	@IsOptional()
+	@IsEnum(Status)
+	status: Status;
 }

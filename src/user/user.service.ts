@@ -35,10 +35,9 @@ export class UserService {
 	}
 
 	async getUserLists(id: string) {
-		const lists = await this.prisma.user.findFirst({
+		const { lists } = await this.prisma.user.findFirst({
 			where: { id },
 			select: {
-				id: true,
 				lists: {
 					select: {
 						id: true,

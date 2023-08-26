@@ -8,15 +8,40 @@ import { CreateTaskDto, UpdateTaskDto } from './dtos';
 export class TaskService {
 	constructor(private readonly prisma: PrismaService) {}
 
+	async getTask(taskId: string) {
+		return this.prisma.task.findFirst({
+			where: { id: taskId },
+			select: {
+				id: true,
+				title: true,
+				description: true,
+				dueDate: true,
+				priority: true,
+				status: true,
+				listId: true
+			}
+		});
+	}
+
 	async createTask(createTaskDto: CreateTaskDto, listId: string) {
-		const { title, description, dueDate, priority } = createTaskDto;
+		const { title, description, dueDate, priority, status } = createTaskDto;
 
 		const newTask = await this.prisma.task.create({
 			data: {
 				title,
 				description,
 				dueDate,
-				priority
+				priority,
+				status
+			},
+			select: {
+				id: true,
+				title: true,
+				description: true,
+				dueDate: true,
+				priority: true,
+				status: true,
+				listId: true
 			}
 		});
 
@@ -26,6 +51,21 @@ export class TaskService {
 				tasks: {
 					connect: {
 						id: newTask.id
+					}
+				}
+			},
+			select: {
+				name: true,
+				id: true,
+				tasks: {
+					select: {
+						id: true,
+						title: true,
+						description: true,
+						dueDate: true,
+						priority: true,
+						status: true,
+						listId: true
 					}
 				}
 			}
@@ -47,6 +87,15 @@ export class TaskService {
 				dueDate,
 				priority,
 				status
+			},
+			select: {
+				id: true,
+				title: true,
+				description: true,
+				dueDate: true,
+				priority: true,
+				status: true,
+				listId: true
 			}
 		});
 

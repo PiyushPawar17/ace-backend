@@ -1,12 +1,11 @@
 import { Injectable } from '@nestjs/common';
 
 import { PrismaService } from '../prisma/prisma.service';
-import { TaskService } from '../task/task.service';
 import { CreateListDto, UpdateListDto } from './dtos';
 
 @Injectable()
 export class ListService {
-	constructor(private readonly prisma: PrismaService, private readonly taskService: TaskService) {}
+	constructor(private readonly prisma: PrismaService) {}
 
 	async createList(userId: string, createListDto: CreateListDto) {
 		const { name } = createListDto;
@@ -39,7 +38,17 @@ export class ListService {
 			select: {
 				name: true,
 				id: true,
-				tasks: true
+				tasks: {
+					select: {
+						id: true,
+						title: true,
+						description: true,
+						dueDate: true,
+						priority: true,
+						status: true,
+						listId: true
+					}
+				}
 			}
 		});
 	}
