@@ -19,7 +19,7 @@ export class AuthController {
 	}
 
 	@Get('logout')
-	logout(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
+	logout(@Req() req: Request, @Res() res: Response) {
 		req.logOut({ keepSessionInfo: false }, () => {
 			res.clearCookie('userId');
 			return res.redirect(process.env.LOGOUT_REDIRECT_URL);
