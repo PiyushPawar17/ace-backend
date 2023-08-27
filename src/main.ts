@@ -22,7 +22,8 @@ async function bootstrap() {
 				maxAge: 6 * 30 * 24 * 60 * 60 * 1000, // 180 days
 				httpOnly: false,
 				secure: true,
-				sameSite: 'none'
+				sameSite: 'none',
+				domain: process.env.CLIENT_ORIGIN
 			},
 			store: new PrismaSessionStore(
 				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
