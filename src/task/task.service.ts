@@ -30,7 +30,7 @@ export class TaskService {
 			data: {
 				title,
 				description,
-				dueDate,
+				dueDate: new Date(dueDate),
 				priority,
 				status
 			},

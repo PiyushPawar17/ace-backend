@@ -1,4 +1,4 @@
-import { IsDate, IsEnum, IsNotEmpty, IsOptional, IsString, MaxLength, MinLength } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsOptional, IsString, MaxLength, MinLength } from 'class-validator';
 import { Transform, TransformFnParams } from 'class-transformer';
 import { Priority, Status } from '@prisma/client';
 
@@ -17,7 +17,6 @@ export class CreateTaskDto {
 	description: string;
 
 	@IsOptional()
-	@IsDate()
 	dueDate: Date;
 
 	@IsOptional()
