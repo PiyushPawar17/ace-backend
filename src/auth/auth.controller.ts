@@ -26,7 +26,6 @@ export class AuthController {
 	}
 
 	@Get('/cookies')
-	@UseGuards(AuthGuard)
 	setCookies(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
 		res.cookie('userId', req.user.id, {
 			domain: process.env.CLIENT_ORIGIN,
@@ -37,6 +36,7 @@ export class AuthController {
 
 		return res.send();
 	}
+
 	@Get('logout')
 	logout(@Req() req: Request, @Res() res: Response) {
 		req.logOut({ keepSessionInfo: false }, () => {
