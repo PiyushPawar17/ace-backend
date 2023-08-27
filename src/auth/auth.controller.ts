@@ -14,14 +14,14 @@ export class AuthController {
 	@Get('google/redirect')
 	@UseGuards(GoogleAuthGuard)
 	handleRedirect(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
-		res.cookie('userId', req.user.id, {
-			domain: process.env.CLIENT_ORIGIN,
-			secure: true,
-			httpOnly: false,
-			sameSite: 'none'
-		});
-
-		return res.redirect(302, process.env.LOGIN_REDIRECT_URL);
+		return res
+			.cookie('userId', req.user.id, {
+				domain: process.env.CLIENT_ORIGIN,
+				secure: true,
+				httpOnly: false,
+				sameSite: 'none'
+			})
+			.redirect(process.env.LOGIN_REDIRECT_URL);
 	}
 
 	@Get('logout')
