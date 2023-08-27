@@ -20,10 +20,7 @@ async function bootstrap() {
 			resave: false,
 			cookie: {
 				maxAge: 6 * 30 * 24 * 60 * 60 * 1000, // 180 days
-				httpOnly: false,
-				secure: true,
-				sameSite: 'none',
-				domain: process.env.CLIENT_ORIGIN
+				httpOnly: true
 			},
 			store: new PrismaSessionStore(
 				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -39,8 +36,7 @@ async function bootstrap() {
 	);
 	app.enableCors({
 		origin: [process.env.CLIENT_ORIGIN],
-		credentials: true,
-		exposedHeaders: ['set-cookie']
+		credentials: true
 	});
 
 	app.use(passport.initialize());
