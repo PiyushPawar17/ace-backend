@@ -3,10 +3,17 @@ import { Logger, ValidationPipe } from '@nestjs/common';
 import session from 'express-session';
 import passport from 'passport';
 import cookieParser from 'cookie-parser';
-import { PrismaSessionStore } from '@quixo3/prisma-session-store';
-import { PrismaClient } from '@prisma/client';
+import MongoDBStore from 'connect-mongodb-session';
 
 import { AppModule } from './app.module';
+
+const mongoStore = MongoDBStore(session);
+
+const store = new mongoStore({
+	collection: 'userSessions',
+	uri: process.env.DATABASE_URL,
+	expires: 6 * 30 * 24 * 60 * 60 * 1000
+});
 
 async function bootstrap() {
 	const app = await NestFactory.create(AppModule);
@@ -20,18 +27,11 @@ async function bootstrap() {
 			resave: false,
 			cookie: {
 				maxAge: 6 * 30 * 24 * 60 * 60 * 1000, // 180 days
-				httpOnly: true
+				httpOnly: true,
+				sameSite: false,
+				secure: process.env.NODE_ENV === 'production'
 			},
-			store: new PrismaSessionStore(
-				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-				// @ts-ignore
-				new PrismaClient(),
-				{
-					checkPeriod: 10 * 60 * 1000, // 10 minutes
-					dbRecordIdIsSessionId: true,
-					dbRecordIdFunction: undefined
-				}
-			)
+			store
 		})
 	);
 	app.enableCors({
