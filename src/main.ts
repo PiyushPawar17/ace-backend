@@ -13,10 +13,6 @@ async function bootstrap() {
 
 	app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
 	app.use(cookieParser());
-	app.enableCors({
-		origin: [process.env.CLIENT_ORIGIN],
-		credentials: true
-	});
 	app.use(
 		session({
 			secret: process.env.SESSION_SECRET,
@@ -24,7 +20,7 @@ async function bootstrap() {
 			resave: false,
 			cookie: {
 				maxAge: 6 * 30 * 24 * 60 * 60 * 1000, // 180 days
-				httpOnly: false
+				httpOnly: true
 			},
 			store: new PrismaSessionStore(
 				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -38,6 +34,11 @@ async function bootstrap() {
 			)
 		})
 	);
+	app.enableCors({
+		origin: [process.env.CLIENT_ORIGIN],
+		credentials: true
+	});
+
 	app.use(passport.initialize());
 	app.use(passport.session());
 

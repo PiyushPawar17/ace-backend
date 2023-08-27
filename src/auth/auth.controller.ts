@@ -14,7 +14,7 @@ export class AuthController {
 	@Get('google/redirect')
 	@UseGuards(GoogleAuthGuard)
 	handleRedirect(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
-		res.cookie('userId', req.user.id, { httpOnly: false });
+		res.cookie('userId', req.user.id);
 		return res.redirect(process.env.LOGIN_REDIRECT_URL);
 	}
 
