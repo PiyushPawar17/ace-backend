@@ -39,7 +39,8 @@ async function bootstrap() {
 	);
 	app.enableCors({
 		origin: [process.env.CLIENT_ORIGIN],
-		credentials: true
+		credentials: true,
+		exposedHeaders: ['set-cookie']
 	});
 
 	app.use(passport.initialize());
