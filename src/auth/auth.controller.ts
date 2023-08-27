@@ -18,7 +18,8 @@ export class AuthController {
 			domain: process.env.CLIENT_ORIGIN,
 			secure: true,
 			sameSite: 'none'
-		}).send();
+		});
+		res.send();
 
 		return res.redirect(process.env.LOGIN_REDIRECT_URL);
 	}
