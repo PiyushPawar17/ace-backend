@@ -16,6 +16,7 @@ export class AuthController {
 	handleRedirect(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
 		res.cookie('userId', req.user.id, {
 			domain: process.env.CLIENT_ORIGIN,
+			httpOnly: true,
 			secure: true,
 			sameSite: 'none'
 		});

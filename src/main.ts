@@ -35,7 +35,7 @@ async function bootstrap() {
 		})
 	);
 	app.enableCors({
-		origin: [process.env.CLIENT_ORIGIN],
+		origin: ['http://localhost:3000', 'https://ace-frontend.vercel.app'],
 		credentials: true
 	});
 
