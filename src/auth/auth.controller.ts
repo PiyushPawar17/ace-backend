@@ -35,7 +35,7 @@ export class AuthController {
 			sameSite: 'none'
 		});
 
-		return res.end();
+		return res.send();
 	}
 	@Get('logout')
 	logout(@Req() req: Request, @Res() res: Response) {
