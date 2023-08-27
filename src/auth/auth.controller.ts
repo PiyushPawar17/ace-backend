@@ -19,7 +19,6 @@ export class AuthController {
 			secure: true,
 			sameSite: 'none'
 		});
-		res.send();
 
 		return res.redirect(process.env.LOGIN_REDIRECT_URL);
 	}
