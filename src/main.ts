@@ -23,7 +23,8 @@ async function bootstrap() {
 			saveUninitialized: false,
 			resave: false,
 			cookie: {
-				maxAge: 6 * 30 * 24 * 60 * 60 * 1000 // 180 days
+				maxAge: 6 * 30 * 24 * 60 * 60 * 1000, // 180 days
+				httpOnly: false
 			},
 			store: new PrismaSessionStore(
 				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
