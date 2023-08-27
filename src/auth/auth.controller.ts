@@ -13,7 +13,10 @@ export class AuthController {
 
 	@Get('google/redirect')
 	@UseGuards(GoogleAuthGuard)
-	handleRedirect(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
+	handleRedirect(@Req() req: Request, @Res() res: Response) {
+		res.header('Content-Type', 'application/json;charset=UTF-8');
+		res.header('Access-Control-Allow-Credentials', 'true');
+		res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
 		return res
 			.cookie('userId', req.user.id, {
 				domain: process.env.CLIENT_ORIGIN,
